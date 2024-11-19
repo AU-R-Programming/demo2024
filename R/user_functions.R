@@ -1,14 +1,3 @@
-loss_ls <- function(X, y, beta) {
-
-  # Add a column of 1s to X to include the intercept in the model
-  X <- cbind(rep(1, n), X)
-
-  # Calculate the sum of squared residuals between observed values (y) and predicted values (X %*% beta)
-  sum((y - X %*% beta)^2)
-
-}
-
-
 #' @title LS through optimization
 #'
 #' @description XXX
@@ -27,8 +16,10 @@ loss_ls <- function(X, y, beta) {
 #' design <- cbind(rep(1, n), X)
 #' y <- design %*% beta + rnorm(n)
 #' opt_ls(y = y, X = X)
-plot_beta <- function(beta) {
+opt_ls <- function(y, X) {
 
-  plot(beta)
+  p <- ncol(X) + 1
+
+  optim(rep(0, p), fn = loss_ls, X = X, y = y)$par
 
 }
